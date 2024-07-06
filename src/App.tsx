@@ -1,16 +1,16 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import {
   Environment,
   OrbitControls,
   PerspectiveCamera,
 } from '@react-three/drei'
-import { Suspense, useRef } from 'react'
+import { Suspense } from 'react'
 import { Cactus } from './components/models/Cactus'
 import { Table } from './components/models/Table'
 import { Mug } from './components/models/Mug'
 import { Iphone } from './components/models/Iphone'
 import Computer from './components/Animations/Computer'
-import * as THREE from 'three'
+
 export default function App() {
   return (
     <Canvas shadows>
@@ -34,29 +34,10 @@ export default function App() {
 }
 
 export const Scene = () => {
-  const ref = useRef(null!)
-  const v = new THREE.Vector3()
-  useFrame((state) => {
-    v.copy({ x: state.pointer.x, y: state.pointer.y, z: 0 })
-    v.unproject(state.camera)
-
-    state.camera.position.lerp(
-      {
-        x: -state.pointer.x * 20,
-        y: -state.pointer.y * 25,
-        z: 20,
-      },
-      0.001
-    )
-
-    state.camera.updateProjectionMatrix()
-  })
-
   return (
     <group scale={10}>
       <directionalLight
         castShadow
-        ref={ref}
         intensity={2}
         position={[2, 5.2, -3.6]}
         shadow-mapSize={[2024, 2024]}
