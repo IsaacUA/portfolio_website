@@ -29,7 +29,7 @@ const Computer = () => {
       {open || (
         <Float>
           <Text3D
-            font={'/fonts/JetBrainsMono_Regular.json'}
+            font={'fonts/JetBrainsMono_Regular.json'}
             position={[-2, 2, 5]}
             castShadow
             receiveShadow
