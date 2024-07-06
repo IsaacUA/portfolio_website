@@ -11,15 +11,12 @@ main,
 }
 
 body {
-  font-family: inter;
-  /* color: black; */
   background: #202025;
 }
 
 .screen {
   width: 1153px;
   height: 750px;
-  transform: scale(0.29);
   background-color: #000;
 }
 /* @media (-webkit-device-pixel-ratio: 3) {

@@ -2,11 +2,11 @@ import * as THREE from 'three'
 import { Html, useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 
-import { animated } from '@react-spring/three'
-import { useRef } from 'react'
+import { animated, Interpolation } from '@react-spring/three'
+import { useEffect, useRef, useState } from 'react'
 import Overlay from '../Overlay'
+import { useFrame } from '@react-three/fiber'
 
-// Define the GLTFResult type
 type GLTFResult = GLTF & {
   nodes: {
     Cube008: THREE.Mesh
@@ -31,10 +31,43 @@ type GLTFResult = GLTF & {
 export function Macbook({
   open,
   hinge,
+  setOpenHandler,
   ...props
-}: { open: boolean; hinge: any } & JSX.IntrinsicElements['group']) {
+}: {
+  open: boolean
+  hinge: Interpolation<number, -0.2 | 1.575>
+  setOpenHandler: React.Dispatch<React.SetStateAction<boolean>>
+} & JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const macToplidRef = useRef<THREE.Mesh>(null!)
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'unset'
+  }, [hovered])
+  useFrame((state) => {
+    if (hovered && open) {
+      state.camera.position.lerp(
+        {
+          x: 0,
+          y: 4,
+          z: 8,
+        },
+        0.01
+      )
+    } else {
+      state.camera.position.lerp(
+        {
+          x: state.pointer.x * 10,
+          y: Math.abs(state.pointer.y * 10) + 3,
+          z: 20,
+        },
+        0.01
+      )
+    }
+
+    state.camera.lookAt(0, 0, 0)
+  })
 
   return (
     <group {...props} dispose={null}>
@@ -42,6 +75,7 @@ export function Macbook({
         position={[0.002, -0.038, 0.414]}
         rotation-x={hinge}
         rotation={[0, 0, 0]}
+        onClick={(e) => (e.stopPropagation(), setOpenHandler(!open))}
       >
         <group position={[0, 2.965, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh
@@ -63,11 +97,16 @@ export function Macbook({
               rotation-x={-Math.PI / 2}
               position={[0, 0.05, -0.09]}
               transform
+              scale={0.29}
               occlude={[macToplidRef]}
             >
               <div
-                // style={{ backgroundColor: open ? '#252525' : '#000' }}
                 className="screen"
+                onPointerOver={(e) => {
+                  e.stopPropagation()
+                  setHovered(true)
+                }}
+                onPointerOut={() => setHovered(false)}
               >
                 {open && <Overlay />}
               </div>

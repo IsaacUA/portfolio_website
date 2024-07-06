@@ -1,9 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import {
-  Environment,
-  OrbitControls,
-  PerspectiveCamera,
-} from '@react-three/drei'
+import { Environment, PerspectiveCamera } from '@react-three/drei'
 import { Suspense } from 'react'
 import { Cactus } from './components/models/Cactus'
 import { Table } from './components/models/Table'
@@ -21,21 +17,13 @@ export default function App() {
         environmentIntensity={1}
       />
       <Scene />
-      <OrbitControls
-        enablePan={false}
-        enableZoom={false}
-        minPolarAngle={Math.PI / 3}
-        maxPolarAngle={Math.PI / 2}
-        minAzimuthAngle={(-Math.PI / 2) * 0.5}
-        maxAzimuthAngle={(Math.PI / 2) * 0.5}
-      />
     </Canvas>
   )
 }
 
 export const Scene = () => {
   return (
-    <group scale={10}>
+    <group scale={20} position-y={-45}>
       <directionalLight
         castShadow
         intensity={2}
@@ -46,11 +34,11 @@ export const Scene = () => {
         shadow-camera-top={100}
         shadow-camera-bottom={-100}
       />
-      <PerspectiveCamera makeDefault={true} position={[-4.4, 10, 20]} />
+      <PerspectiveCamera makeDefault={true} position={[0, 10, 20]} />
       <Suspense fallback={null}>
         <Computer />
         <Iphone position={[6, -0.2, 6.6]} />
-        <Cactus position={[-6, 0, 2]} />
+        <Cactus position={[-6.7, 0, 2]} />
         <Mug rotation-y={Math.PI / 0.56} position={[7, -0.45, 8]} />
         <Table />
         <mesh rotation-x={-Math.PI / 2} position={[0, -14.4, 6]}>

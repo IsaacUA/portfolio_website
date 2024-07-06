@@ -1,5 +1,5 @@
 import { Float, Text3D } from '@react-three/drei'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useSpring } from 'react-spring'
 import { Macbook } from '../models/Macbook'
@@ -13,19 +13,9 @@ const Computer = () => {
       friction: 130,
     },
   })
-  const [hovered, setHovered] = useState(false)
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'pointer' : 'auto'
-  }, [hovered])
+
   return (
-    <mesh
-      onPointerOver={(e) => {
-        e.stopPropagation()
-        setHovered(true)
-      }}
-      onPointerOut={() => setHovered(false)}
-      onClick={(e) => (e.stopPropagation(), setOpen(!open))}
-    >
+    <mesh>
       {open || (
         <Float>
           <Text3D
@@ -43,6 +33,7 @@ const Computer = () => {
         position={[0, -0.3, 2]}
         hinge={props.open.to([0, 1], [1.575, -0.2])}
         open={open}
+        setOpenHandler={setOpen}
       />
     </mesh>
   )
