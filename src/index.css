@@ -12,6 +12,7 @@ main,
 
 body {
   background: #202025;
+  cursor: pointer;
 }
 
 .screen {
@@ -19,11 +20,17 @@ body {
   height: 750px;
   background-color: #000;
 }
-/* @media (-webkit-device-pixel-ratio: 3) {
+@media (-webkit-device-pixel-ratio: 3) {
   .screen {
-    margin-top: -13px;
+    margin-top: -3rem;
+    margin-left: -3rem;
   }
-} */
+}
+@media (orientation: landscape) {
+  .screen {
+    margin-top: 0rem;
+  }
+}
 
 .wrapper {
   width: inherit;

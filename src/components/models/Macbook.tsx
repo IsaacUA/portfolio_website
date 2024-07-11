@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { Html, useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-
 import { animated, Interpolation } from '@react-spring/three'
 import { useEffect, useRef, useState } from 'react'
 import Overlay from '../Overlay'
@@ -27,7 +26,6 @@ type GLTFResult = GLTF & {
   }
 }
 
-// Define the Model component
 export function Macbook({
   open,
   hinge,
@@ -43,29 +41,29 @@ export function Macbook({
   const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
-    document.body.style.cursor = hovered ? 'pointer' : 'unset'
+    document.body.style.cursor = hovered ? 'auto' : 'pointer'
   }, [hovered])
+
   useFrame((state) => {
     if (hovered && open) {
       state.camera.position.lerp(
         {
           x: 0,
-          y: 4,
-          z: 8,
+          y: 3.8,
+          z: 9,
         },
         0.01
       )
     } else {
       state.camera.position.lerp(
         {
-          x: state.pointer.x * 10,
-          y: Math.abs(state.pointer.y * 10) + 3,
-          z: 20,
+          x: 0,
+          y: 10,
+          z: 30,
         },
         0.01
       )
     }
-
     state.camera.lookAt(0, 0, 0)
   })
 
@@ -92,6 +90,17 @@ export function Macbook({
             material={materials['matte.001']}
           />
           <mesh geometry={nodes.Cube008_2.geometry}>
+            {open && (
+              <rectAreaLight
+                // receiveShadow
+                // castShadow
+                rotation-x={Math.PI / 2}
+                intensity={2}
+                position={[0, 0, 0]}
+                width={8.4}
+                height={6}
+              />
+            )}
             <Html
               className="content"
               rotation-x={-Math.PI / 2}
@@ -101,12 +110,15 @@ export function Macbook({
               occlude={[macToplidRef]}
             >
               <div
-                className="screen"
                 onPointerOver={(e) => {
                   e.stopPropagation()
                   setHovered(true)
                 }}
-                onPointerOut={() => setHovered(false)}
+                onPointerOut={(e) => {
+                  e.stopPropagation()
+                  setHovered(false)
+                }}
+                className="screen"
               >
                 {open && <Overlay />}
               </div>

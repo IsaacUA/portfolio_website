@@ -20,17 +20,24 @@ const Computer = () => {
         <Float>
           <Text3D
             font={'fonts/JetBrainsMono_Regular.json'}
-            position={[-2, 2, 5]}
+            position={[-2, 2, 2]}
             castShadow
             receiveShadow
           >
             Click
             <meshStandardMaterial />
           </Text3D>
+          <spotLight
+            position={[0, 4.4, 4.2]}
+            angle={0.9}
+            intensity={50}
+            distance={13}
+            castShadow
+          />
         </Float>
       )}
       <Macbook
-        position={[0, -0.3, 2]}
+        position={[0, -0.3, 3]}
         hinge={props.open.to([0, 1], [1.575, -0.2])}
         open={open}
         setOpenHandler={setOpen}

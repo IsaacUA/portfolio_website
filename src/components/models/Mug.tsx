@@ -12,7 +12,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Mug(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('models/mug.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('models/mug_2.gltf') as GLTFResult
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -26,4 +26,4 @@ export function Mug(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('models/mug.gltf')
+useGLTF.preload('models/mug_2.gltf')
