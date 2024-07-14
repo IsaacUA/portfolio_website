@@ -1,8 +1,7 @@
 import { Float, Text3D } from '@react-three/drei'
 import { useState } from 'react'
-
 import { useSpring } from 'react-spring'
-import { Macbook } from '../models/Macbook'
+import { MacbookModel } from '../models/MacbookModel'
 const Computer = () => {
   const [open, setOpen] = useState(false)
   const props = useSpring({
@@ -20,25 +19,15 @@ const Computer = () => {
         <Float>
           <Text3D
             font={'fonts/JetBrainsMono_Regular.json'}
-            position={[-2, 2, 2]}
-            castShadow
-            receiveShadow
+            position={[-2, 1.5, 4]}
           >
-            Click
+            {'Click \n  ↓'}
             <meshStandardMaterial />
           </Text3D>
-          <spotLight
-            position={[0, 4.4, 4.2]}
-            angle={0.9}
-            intensity={50}
-            distance={13}
-            castShadow
-          />
         </Float>
       )}
-      <Macbook
-        position={[0, -0.3, 3]}
-        hinge={props.open.to([0, 1], [1.575, -0.2])}
+      <MacbookModel
+        hinge={props.open.to([0, 1], [1.575, -0.3])}
         open={open}
         setOpenHandler={setOpen}
       />

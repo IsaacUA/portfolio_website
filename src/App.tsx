@@ -6,24 +6,19 @@ import {
   PerspectiveCamera,
 } from '@react-three/drei'
 import { Suspense } from 'react'
-import { Cactus } from './components/models/Cactus'
-import { Table } from './components/models/Table'
-import { Mug } from './components/models/Mug'
 import Computer from './components/Animations/Computer'
-
+import { SceneModel } from './components/models/SceneModel'
 export default function App() {
   return (
     <Canvas shadows>
       <Scene />
-      {/* <ambientLight intensity={1} /> */}
-
       <OrbitControls
         enablePan={false}
         enableZoom={false}
         minPolarAngle={Math.PI / 3}
-        maxPolarAngle={Math.PI / 2}
-        minAzimuthAngle={(-Math.PI / 2) * 0.4}
-        maxAzimuthAngle={(Math.PI / 2) * 0.4}
+        maxPolarAngle={Math.PI / 2.5}
+        minAzimuthAngle={-Math.PI / 8}
+        maxAzimuthAngle={Math.PI / 8}
       />
     </Canvas>
   )
@@ -32,31 +27,36 @@ export default function App() {
 export const Scene = () => {
   return (
     <>
-      <group position-y={-2}>
-        <PerspectiveCamera makeDefault={true} position={[-40, 10, 40]} />
-        <Suspense fallback={null}>
-          <Computer />
-          {/* <Iphone position={[6, -0.2, 6.6]} /> */}
-          <Cactus position={[-6.6, 0, 4]} />
-          <Mug rotation-y={Math.PI / 0.56} position={[5.5, -0.45, 7]} />
-          <Table />
-          <Environment
-            backgroundRotation={[-Math.PI / 2, 0, 0]}
-            background
-            backgroundBlurriness={1}
-            backgroundIntensity={0.05}
-            files={'hdr/background.hdr'}
-            environmentIntensity={0.05}
-          />
-          <ContactShadows
-            scale={100}
-            position={[0, -14.5, 0]}
-            blur={1}
-            far={20}
-            opacity={0.85}
-          />
-        </Suspense>
-      </group>
+      <PerspectiveCamera makeDefault={true} position={[-60, 20, 40]} />
+      <Suspense fallback={null}>
+        <Computer />
+        <SceneModel />
+        <Environment
+          backgroundRotation={[-Math.PI / 2, 0, 0]}
+          background
+          backgroundBlurriness={1}
+          preset="sunset"
+          backgroundIntensity={0.1}
+        />
+        <directionalLight
+          castShadow
+          position={[12, 8, 10]}
+          intensity={4}
+          shadow-mapSize={[8024, 8024]}
+          shadow-camera-left={-400}
+          shadow-camera-right={100}
+          shadow-camera-top={100}
+          shadow-camera-bottom={-100}
+          shadow-normalBias={1}
+        />
+        <ContactShadows
+          scale={100}
+          position={[0, -16, 0]}
+          blur={1}
+          far={20}
+          opacity={0.85}
+        />
+      </Suspense>
     </>
   )
 }
