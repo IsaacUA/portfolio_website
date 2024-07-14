@@ -10,7 +10,7 @@ import Computer from './components/Animations/Computer'
 import { SceneModel } from './components/models/SceneModel'
 export default function App() {
   return (
-    <Canvas shadows>
+    <Canvas shadows gl={{ powerPreference: 'low-power', precision: 'lowp' }}>
       <Scene />
       <OrbitControls
         enablePan={false}
@@ -36,7 +36,7 @@ export const Scene = () => {
           background
           backgroundBlurriness={1}
           preset="sunset"
-          backgroundIntensity={0.1}
+          backgroundIntensity={0.6}
         />
         <directionalLight
           castShadow

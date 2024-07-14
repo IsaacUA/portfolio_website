@@ -9,7 +9,6 @@ type GLTFResult = GLTF & {
     DeskChairobj: THREE.Mesh
     RubbishBinobj: THREE.Mesh
     UtensilCupWithobj: THREE.Mesh
-    lowpolyobj005: THREE.Mesh
     lowpolyobj003: THREE.Mesh
     lowpolyobj004: THREE.Mesh
     lowpolyobj006: THREE.Mesh
@@ -21,7 +20,6 @@ type GLTFResult = GLTF & {
     ['Material.008']: THREE.MeshStandardMaterial
     ['Material.009']: THREE.MeshStandardMaterial
     ['Material.011']: THREE.MeshStandardMaterial
-    ['Material.017']: THREE.MeshStandardMaterial
     ['Material.002']: THREE.MeshStandardMaterial
     ['Material.001']: THREE.MeshStandardMaterial
     ['Material.004']: THREE.MeshStandardMaterial
@@ -76,15 +74,6 @@ export function SceneModel(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.011']}
         position={[-0.638, -0.025, -0.35]}
         rotation={[Math.PI / 2, 0, 0.764]}
-        scale={2.241}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.lowpolyobj005.geometry}
-        material={materials['Material.017']}
-        position={[1.204, -0.015, 0.343]}
-        rotation={[Math.PI / 2, 0, 1.21]}
         scale={2.241}
       />
       <mesh
