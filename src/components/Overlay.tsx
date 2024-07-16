@@ -10,20 +10,20 @@ const Overlay = () => {
             margin: '0',
           }}
         >
-          Dmytro Hordus
+          Hey there! 👋
         </h1>
 
         <TypeAnimation
           preRenderFirstString={true}
           wrapper="p"
           sequence={[
-            '> Hey there! 👋',
+            '> I’m a ',
             1000,
-            '> Hey there! 👋 I’m a front-end developer',
+            '> I’m a front-end developer',
             1000,
-            '> Hey there! 👋 I’m a back-end developer',
+            '> I’m a back-end developer',
             1000,
-            '> Hey there! 👋 I’m a full-stack developer who loves crafting dynamic web experiences. From sleek interfaces with TailWind CSS 🎨 to seamless state management with React and Redux Toolkit ⚛️, I’m all about making the web engaging and fun.',
+            '> I’m a full-stack developer who loves crafting dynamic web experiences. From sleek interfaces with TailWind CSS 🎨 to seamless state management with React and Redux Toolkit ⚛️, I’m all about making the web engaging and fun.',
           ]}
           speed={50}
           style={{

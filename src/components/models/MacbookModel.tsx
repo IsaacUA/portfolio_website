@@ -2,9 +2,8 @@ import * as THREE from 'three'
 import { Html, useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { animated, Interpolation } from '@react-spring/three'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Overlay from '../Overlay'
-import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -30,42 +29,16 @@ export function MacbookModel({
   open,
   hinge,
   setOpenHandler,
+  setHoveredHandler,
   ...props
 }: {
   open: boolean
   hinge: Interpolation<number, -0.3 | 1.575>
   setOpenHandler: React.Dispatch<React.SetStateAction<boolean>>
+  setHoveredHandler: React.Dispatch<React.SetStateAction<boolean>>
 } & JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const macToplidRef = useRef<THREE.Mesh>(null!)
-  const [hovered, setHovered] = useState(false)
-
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'auto' : 'pointer'
-  }, [hovered])
-
-  useFrame((state) => {
-    if (hovered && open) {
-      state.camera.position.lerp(
-        {
-          x: 0,
-          y: 2,
-          z: 9,
-        },
-        0.01
-      )
-    } else {
-      state.camera.position.lerp(
-        {
-          x: 0,
-          y: 10,
-          z: 30,
-        },
-        0.01
-      )
-    }
-    state.camera.lookAt(0, 0, 0)
-  })
 
   return (
     <group {...props} dispose={null} position={[0, -2, 3]}>
@@ -85,7 +58,6 @@ export function MacbookModel({
           />
           <mesh
             castShadow
-            // receiveShadow
             geometry={nodes.Cube008_1.geometry}
             material={materials['matte.001']}
           />
@@ -101,11 +73,11 @@ export function MacbookModel({
               <div
                 onPointerOver={(e) => {
                   e.stopPropagation()
-                  setHovered(true)
+                  setHoveredHandler(true)
                 }}
                 onPointerOut={(e) => {
                   e.stopPropagation()
-                  setHovered(false)
+                  setHoveredHandler(false)
                 }}
                 className="screen"
               >
