@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei'
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -8,6 +8,7 @@ import {
   faArrowPointer,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons'
+import { Howl } from 'howler'
 
 export const MainOverlay = ({
   hoveredHandler,
@@ -19,17 +20,24 @@ export const MainOverlay = ({
   freeCamHandler: boolean
 }) => {
   const [isPlaying, setIsPlaying] = useState(false)
-  const bgaudioRef = useRef(new Audio('music/backgroundmusic.wav'))
+  const bgaudioRef = useRef(
+    new Howl({
+      src: ['music/backgroundmusic.mp3'],
+      loop: true,
+      volume: 0.1,
+    })
+  )
 
   const audioHandler = () => {
     const audio = bgaudioRef.current
     if (isPlaying) {
       audio.pause()
+      // audio.currentTime = 0
       setIsPlaying(false)
     } else {
       audio.play()
-      audio.loop = true
-      audio.volume = 0.1
+      // audio.loop = true
+      // audio.volume = 0.1
       setIsPlaying(true)
     }
   }
@@ -41,15 +49,24 @@ export const MainOverlay = ({
           <Wrapper>
             <p>Dmytro Hordus</p>
             <p>Showcase Project</p>
-            <button onClick={audioHandler} type="button">
-              <FontAwesomeIcon icon={isPlaying ? faVolumeHigh : faVolumeOff} />
+            <button
+              onClick={audioHandler}
+              type="button"
+              title="Turn ON/OFF music"
+            >
+              <FontAwesomeIcon
+                className="icon"
+                icon={isPlaying ? faVolumeHigh : faVolumeOff}
+              />
             </button>
             <button
               onClick={() => setFreeCamHandler((state) => !state)}
               type="button"
+              title="Free Cam ON/OFF"
             >
               <FontAwesomeIcon
-                icon={freeCamHandler ? faArrowPointer : faVideo}
+                className="icon"
+                icon={freeCamHandler ? faVideo : faArrowPointer}
               />
             </button>
           </Wrapper>
@@ -74,14 +91,20 @@ const Wrapper = styled.div`
   button {
     width: 4rem;
     height: 2.5rem;
-    font-size: 1.1rem;
     margin: 0.3rem 0.6rem 0 0;
     color: #fff;
     background-color: #202025;
     cursor: pointer;
     border: none;
-    &:hover {
-      font-size: 1.2rem;
+
+    &:hover .icon {
+      scale: 1.9;
     }
+    &:active .icon {
+      scale: 2;
+    }
+  }
+  .icon {
+    scale: 1.6;
   }
 `

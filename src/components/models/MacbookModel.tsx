@@ -28,13 +28,11 @@ type GLTFResult = GLTF & {
 export function MacbookModel({
   open,
   hinge,
-  setOpenHandler,
   setHoveredHandler,
   ...props
 }: {
   open: boolean
   hinge: Interpolation<number, -0.3 | 1.575>
-  setOpenHandler: React.Dispatch<React.SetStateAction<boolean>>
   setHoveredHandler: React.Dispatch<React.SetStateAction<boolean>>
 } & JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
@@ -46,7 +44,6 @@ export function MacbookModel({
         position={[0.002, -0.038, 0.414]}
         rotation-x={hinge}
         rotation={[0, 0, 0]}
-        onClick={(e) => (e.stopPropagation(), setOpenHandler(!open))}
       >
         <group position={[0, 2.965, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh

@@ -7,7 +7,7 @@ import {
   PerspectiveCamera,
 } from '@react-three/drei'
 import { useSpring } from 'react-spring'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { SceneModel } from './components/models/SceneModel'
 import { MacbookModel } from './components/models/MacbookModel'
@@ -33,13 +33,12 @@ export default function App() {
 
 const Scene = () => {
   const [freeCam, setFreeCam] = useState(false)
-  console.log('Scene ~ freeCam:', freeCam)
   const [open, setOpen] = useState(false)
   const [hovered, setHovered] = useState(false)
 
-  useEffect(() => {
-    document.body.style.cursor = hovered ? 'auto' : 'pointer'
-  }, [hovered])
+  // useEffect(() => {
+  //   document.body.style.cursor = hovered ? 'auto' : 'pointer'
+  // }, [hovered])
 
   const props = useSpring({
     open: Number(open),
@@ -78,6 +77,9 @@ const Scene = () => {
   return (
     <>
       <OrbitControls
+        enableRotate={hovered ? false : true}
+        autoRotateSpeed={0.5}
+        autoRotate={freeCam ? true : false}
         minDistance={freeCam ? 30 : 0}
         maxDistance={70}
         enablePan={false}
@@ -119,11 +121,10 @@ const Scene = () => {
         setFreeCamHandler={setFreeCam}
         freeCamHandler={freeCam}
       />
-      {!open && <FloatingText />}
+      {!freeCam && !open && <FloatingText setOpenHandler={setOpen} />}
       <MacbookModel
-        hinge={props.open.to([0, 1], [1.575, -0.3])}
         open={open}
-        setOpenHandler={setOpen}
+        hinge={props.open.to([0, 1], [1.575, -0.3])}
         setHoveredHandler={setHovered}
       />
       <SceneModel />
