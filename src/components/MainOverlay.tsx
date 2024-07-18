@@ -9,16 +9,10 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons'
 import { Howl } from 'howler'
+import { useModel } from './context/ModelContext'
 
-export const MainOverlay = ({
-  hoveredHandler,
-  setFreeCamHandler,
-  freeCamHandler,
-}: {
-  hoveredHandler: boolean
-  setFreeCamHandler: React.Dispatch<React.SetStateAction<boolean>>
-  freeCamHandler: boolean
-}) => {
+export const MainOverlay = () => {
+  const { open, freeCam, changeCam } = useModel()
   const [isPlaying, setIsPlaying] = useState(false)
   const bgaudioRef = useRef(
     new Howl({
@@ -32,19 +26,16 @@ export const MainOverlay = ({
     const audio = bgaudioRef.current
     if (isPlaying) {
       audio.pause()
-      // audio.currentTime = 0
       setIsPlaying(false)
     } else {
       audio.play()
-      // audio.loop = true
-      // audio.volume = 0.1
       setIsPlaying(true)
     }
   }
 
   return (
     <>
-      {(!freeCamHandler && hoveredHandler) || (
+      {(!freeCam && open) || (
         <Html fullscreen zIndexRange={[-1]}>
           <Wrapper>
             <p>Dmytro Hordus</p>
@@ -59,14 +50,10 @@ export const MainOverlay = ({
                 icon={isPlaying ? faVolumeHigh : faVolumeOff}
               />
             </button>
-            <button
-              onClick={() => setFreeCamHandler((state) => !state)}
-              type="button"
-              title="Free Cam ON/OFF"
-            >
+            <button onClick={changeCam} type="button" title="Free Cam ON/OFF">
               <FontAwesomeIcon
                 className="icon"
-                icon={freeCamHandler ? faVideo : faArrowPointer}
+                icon={freeCam ? faVideo : faArrowPointer}
               />
             </button>
           </Wrapper>

@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import {
   ContactShadows,
   Environment,
@@ -6,14 +6,16 @@ import {
   OrbitControls,
   PerspectiveCamera,
 } from '@react-three/drei'
-import { useSpring } from 'react-spring'
-import { useState } from 'react'
-
 import { SceneModel } from './components/models/SceneModel'
 import { MacbookModel } from './components/models/MacbookModel'
 import { FloatingText } from './components/models/FloatingText'
 import { MainOverlay } from './components/MainOverlay'
-
+import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import {
+  initState,
+  ModelProvider,
+  useModel,
+} from './components/context/ModelContext'
 export default function App() {
   return (
     <>
@@ -25,59 +27,33 @@ export default function App() {
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
       <Canvas shadows gl={{ powerPreference: 'low-power', precision: 'lowp' }}>
-        <Scene />
+        <PerspectiveCamera makeDefault={true} position={[-60, 20, 40]} />
+        <ModelProvider
+          light={initState.light}
+          open={initState.open}
+          freeCam={initState.freeCam}
+        >
+          <Scene />
+        </ModelProvider>
+        <ContactShadows
+          scale={100}
+          position={[0, -16, 0]}
+          blur={1}
+          far={20}
+          opacity={0.85}
+        />
       </Canvas>
     </>
   )
 }
 
 const Scene = () => {
-  const [freeCam, setFreeCam] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [hovered, setHovered] = useState(false)
-
-  // useEffect(() => {
-  //   document.body.style.cursor = hovered ? 'auto' : 'pointer'
-  // }, [hovered])
-
-  const props = useSpring({
-    open: Number(open),
-    config: {
-      mass: 50,
-      tension: open ? 151 : 120,
-      friction: 130,
-    },
-  })
-
-  useFrame((state) => {
-    if (hovered && open && !freeCam) {
-      state.camera.position.lerp(
-        {
-          x: 0,
-          y: 2,
-          z: 9,
-        },
-        0.01
-      )
-    }
-
-    if (!hovered && !freeCam) {
-      state.camera.position.lerp(
-        {
-          x: 0,
-          y: 10,
-          z: 30,
-        },
-        0.01
-      )
-    }
-    state.camera.lookAt(0, 0, 0)
-  })
+  const { open, light, freeCam, openLaptop, changeLight } = useModel()
 
   return (
     <>
       <OrbitControls
-        enableRotate={hovered ? false : true}
+        enableRotate={open ? false : true}
         autoRotateSpeed={0.5}
         autoRotate={freeCam ? true : false}
         minDistance={freeCam ? 30 : 0}
@@ -88,46 +64,58 @@ const Scene = () => {
         maxPolarAngle={Math.PI / 2.5}
         minAzimuthAngle={freeCam ? undefined : -Math.PI / 8}
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
-        onChange={() => {}}
       />
-      <PerspectiveCamera makeDefault={true} position={[-60, 20, 40]} />
-      <directionalLight
-        castShadow
-        position={[12, 8, 10]}
-        intensity={4}
-        shadow-mapSize={[8024, 8024]}
-        shadow-camera-left={-400}
-        shadow-camera-right={100}
-        shadow-camera-top={100}
-        shadow-camera-bottom={-100}
-        shadow-normalBias={1}
-      />
-      <ContactShadows
-        scale={100}
-        position={[0, -16, 0]}
-        blur={1}
-        far={20}
-        opacity={0.85}
-      />
+      {light && (
+        <spotLight
+          castShadow
+          angle={2.6}
+          position={[8, 5.5, 4]}
+          intensity={1}
+          power={10}
+          distance={20}
+          decay={0.2}
+          shadow-normalBias={1}
+        />
+      )}
+      {light || (
+        <directionalLight
+          castShadow
+          position={[12, 8, 10]}
+          intensity={4}
+          shadow-mapSize={[8024, 8024]}
+          shadow-camera-left={-400}
+          shadow-camera-right={100}
+          shadow-camera-top={100}
+          shadow-camera-bottom={-100}
+          shadow-normalBias={1}
+        />
+      )}
+      {!freeCam && !open && (
+        <FloatingText
+          icon={faLaptop}
+          position={[0, 0.5, 6]}
+          action={openLaptop}
+        />
+      )}
+      {!freeCam && (
+        <FloatingText
+          icon={faLightbulb}
+          position={[8.7, 0.5, 3.2]}
+          audioPath={'music/lampClick.wav'}
+          action={changeLight}
+        />
+      )}
+      <MainOverlay />
+      <MacbookModel />
+      <SceneModel />
       <Environment
         backgroundRotation={[-Math.PI / 2, 0, 0]}
         background
         backgroundBlurriness={1}
         files={'hdr/background.hdr'}
-        backgroundIntensity={0.6}
+        backgroundIntensity={light ? 0.04 : 0.6}
+        environmentIntensity={light ? 0.1 : 1}
       />
-      <MainOverlay
-        hoveredHandler={hovered}
-        setFreeCamHandler={setFreeCam}
-        freeCamHandler={freeCam}
-      />
-      {!freeCam && !open && <FloatingText setOpenHandler={setOpen} />}
-      <MacbookModel
-        open={open}
-        hinge={props.open.to([0, 1], [1.575, -0.3])}
-        setHoveredHandler={setHovered}
-      />
-      <SceneModel />
     </>
   )
 }

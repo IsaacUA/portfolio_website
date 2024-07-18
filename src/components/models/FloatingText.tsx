@@ -1,16 +1,40 @@
-import { faLaptop } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Html } from '@react-three/drei'
+import { Vector3 } from '@react-three/fiber'
 import { styled } from 'styled-components'
+
 export const FloatingText = ({
-  setOpenHandler,
+  position,
+  icon,
+  audioPath,
+  action,
 }: {
-  setOpenHandler: React.Dispatch<React.SetStateAction<boolean>>
+  position: Vector3
+  icon: IconDefinition
+  audioPath?: string | string[]
+  action: () => void
 }) => {
+  let sound: Howl
+  if (audioPath) {
+    sound = new Howl({
+      src: audioPath,
+      volume: 0.2,
+    })
+  }
+
   return (
-    <Html position={[0, 1, 6]} transform>
-      <Wrapper onClick={(e) => (e.stopPropagation(), setOpenHandler(true))}>
-        <FontAwesomeIcon className="icon" icon={faLaptop} />
+    <Html position={position} transform>
+      <Wrapper
+        onClick={(e) => {
+          action()
+          e.stopPropagation()
+          if (audioPath) {
+            sound.play()
+          }
+        }}
+      >
+        <FontAwesomeIcon className="icon" icon={icon} />
       </Wrapper>
     </Html>
   )

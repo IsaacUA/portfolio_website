@@ -1,9 +1,11 @@
 import * as THREE from 'three'
 import { Html, useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { animated, Interpolation } from '@react-spring/three'
+import { animated, useSpring } from '@react-spring/three'
 import { useRef } from 'react'
 import Overlay from '../Overlay'
+import { useModel } from '../context/ModelContext'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -25,24 +27,49 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function MacbookModel({
-  open,
-  hinge,
-  setHoveredHandler,
-  ...props
-}: {
-  open: boolean
-  hinge: Interpolation<number, -0.3 | 1.575>
-  setHoveredHandler: React.Dispatch<React.SetStateAction<boolean>>
-} & JSX.IntrinsicElements['group']) {
+export function MacbookModel() {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const macToplidRef = useRef<THREE.Mesh>(null!)
+  const { open, freeCam } = useModel()
+  const props = useSpring({
+    open: Number(open),
+    config: {
+      mass: 50,
+      tension: open ? 151 : 120,
+      friction: 130,
+    },
+  })
+
+  useFrame((state) => {
+    if (open && !freeCam) {
+      state.camera.position.lerp(
+        {
+          x: 0,
+          y: 2,
+          z: 9,
+        },
+        0.01
+      )
+    }
+
+    if (!open && !freeCam) {
+      state.camera.position.lerp(
+        {
+          x: 0,
+          y: 10,
+          z: 30,
+        },
+        0.01
+      )
+    }
+    state.camera.lookAt(0, 0, 0)
+  })
 
   return (
     <group {...props} dispose={null} position={[0, -2, 3]}>
       <animated.group
         position={[0.002, -0.038, 0.414]}
-        rotation-x={hinge}
+        rotation-x={props.open.to([0, 1], [1.575, -0.3])}
         rotation={[0, 0, 0]}
       >
         <group position={[0, 2.965, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
@@ -67,19 +94,7 @@ export function MacbookModel({
               scale={0.29}
               occlude={[macToplidRef]}
             >
-              <div
-                onPointerOver={(e) => {
-                  e.stopPropagation()
-                  setHoveredHandler(true)
-                }}
-                onPointerOut={(e) => {
-                  e.stopPropagation()
-                  setHoveredHandler(false)
-                }}
-                className="screen"
-              >
-                {open && <Overlay />}
-              </div>
+              <div className="screen">{open && <Overlay />}</div>
             </Html>
           </mesh>
         </group>
