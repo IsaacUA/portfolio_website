@@ -67,6 +67,9 @@ const Wrapper = styled.div`
   margin: 4rem;
   max-width: 17rem;
   font-family: 'fonts/JetBrainsMono_Regular.ttf';
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   p {
     font-size: 2rem;
     display: inline-block;
@@ -83,15 +86,12 @@ const Wrapper = styled.div`
     background-color: #202025;
     cursor: pointer;
     border: none;
-
+    font-size: 1rem;
     &:hover .icon {
-      scale: 1.9;
+      scale: 1.2;
     }
     &:active .icon {
-      scale: 2;
+      scale: 1.4;
     }
-  }
-  .icon {
-    scale: 1.4;
   }
 `

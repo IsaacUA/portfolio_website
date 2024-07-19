@@ -6,6 +6,8 @@ import { useRef } from 'react'
 import Overlay from '../Overlay'
 import { useModel } from '../../context/ModelContext'
 import { useFrame } from '@react-three/fiber'
+import { FloatingText } from './FloatingText'
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -29,8 +31,8 @@ type GLTFResult = GLTF & {
 
 export function MacbookModel() {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
-  const macToplidRef = useRef<THREE.Mesh>(null!)
   const { open, freeCam, openLaptop } = useModel()
+  const macToplidRef = useRef<THREE.Mesh>(null!)
   const props = useSpring({
     open: Number(open),
     config: {
@@ -86,6 +88,7 @@ export function MacbookModel() {
             material={materials['matte.001']}
           />
           <mesh geometry={nodes.Cube008_2.geometry}>
+            <meshBasicMaterial color={'#000'} />
             <Html
               className="content"
               rotation-x={-Math.PI / 2}
@@ -126,7 +129,17 @@ export function MacbookModel() {
         geometry={nodes.touchbar.geometry}
         material={materials.touchbar}
         position={[0, -0.027, 1.201]}
-      />
+      >
+        {open && (
+          <FloatingText
+            position={[-3.4, 0.14, -0.5]}
+            icon={faClose}
+            action={openLaptop}
+            scale={0.3}
+            occlude={true}
+          />
+        )}
+      </mesh>
     </group>
   )
 }

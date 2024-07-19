@@ -55,7 +55,7 @@ const Scene = () => {
         maxDistance={70}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2.5}
-        enableRotate={open ? false : true}
+        // enableRotate={open ? false : true}
         minDistance={freeCam ? 30 : 0}
         enableZoom={freeCam ? true : false}
         autoRotate={freeCam ? true : false}

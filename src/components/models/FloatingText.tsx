@@ -10,11 +10,15 @@ export const FloatingText = ({
   icon,
   audioPath,
   action,
+  scale,
+  occlude,
 }: {
   position: Vector3
   icon: IconDefinition
   audioPath?: string | string[]
   action: () => void
+  scale?: number
+  occlude?: boolean
 }) => {
   const { sound } = useModel()
   let audio: Howl
@@ -26,7 +30,7 @@ export const FloatingText = ({
   }
 
   return (
-    <Html position={position} transform>
+    <Html position={position} transform scale={scale} occlude={occlude}>
       <Wrapper
         onClick={(e) => {
           action()
@@ -53,6 +57,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   .icon {
     transform: rotate(45deg);
