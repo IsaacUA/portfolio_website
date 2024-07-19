@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Html } from '@react-three/drei'
 import { Vector3 } from '@react-three/fiber'
 import { styled } from 'styled-components'
+import { useModel } from '../../context/ModelContext'
 
 export const FloatingText = ({
   position,
@@ -15,11 +16,12 @@ export const FloatingText = ({
   audioPath?: string | string[]
   action: () => void
 }) => {
-  let sound: Howl
+  const { sound } = useModel()
+  let audio: Howl
   if (audioPath) {
-    sound = new Howl({
+    audio = new Howl({
       src: audioPath,
-      volume: 0.2,
+      volume: sound ? 0.2 : 0,
     })
   }
 
@@ -30,7 +32,7 @@ export const FloatingText = ({
           action()
           e.stopPropagation()
           if (audioPath) {
-            sound.play()
+            audio.play()
           }
         }}
       >

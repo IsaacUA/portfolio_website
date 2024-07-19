@@ -4,7 +4,7 @@ import { GLTF } from 'three-stdlib'
 import { animated, useSpring } from '@react-spring/three'
 import { useRef } from 'react'
 import Overlay from '../Overlay'
-import { useModel } from '../context/ModelContext'
+import { useModel } from '../../context/ModelContext'
 import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
@@ -30,7 +30,7 @@ type GLTFResult = GLTF & {
 export function MacbookModel() {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const macToplidRef = useRef<THREE.Mesh>(null!)
-  const { open, freeCam } = useModel()
+  const { open, freeCam, openLaptop } = useModel()
   const props = useSpring({
     open: Number(open),
     config: {
@@ -46,7 +46,7 @@ export function MacbookModel() {
         {
           x: 0,
           y: 2,
-          z: 9,
+          z: 11,
         },
         0.01
       )
@@ -66,7 +66,7 @@ export function MacbookModel() {
   })
 
   return (
-    <group {...props} dispose={null} position={[0, -2, 3]}>
+    <group {...props} dispose={null} position={[0, -2, 3]} onClick={openLaptop}>
       <animated.group
         position={[0.002, -0.038, 0.414]}
         rotation-x={props.open.to([0, 1], [1.575, -0.3])}

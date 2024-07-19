@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,27 +9,27 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons'
 import { Howl } from 'howler'
-import { useModel } from './context/ModelContext'
+import { useModel } from '../context/ModelContext'
 
 export const MainOverlay = () => {
-  const { open, freeCam, changeCam } = useModel()
-  const [isPlaying, setIsPlaying] = useState(false)
+  const { sound, open, freeCam, changeCam, turnOnSound } = useModel()
+
   const bgaudioRef = useRef(
     new Howl({
       src: ['music/backgroundmusic.mp3'],
       loop: true,
-      volume: 0.1,
+      volume: 0.3,
     })
   )
 
   const audioHandler = () => {
     const audio = bgaudioRef.current
-    if (isPlaying) {
+    if (sound) {
       audio.pause()
-      setIsPlaying(false)
+      turnOnSound()
     } else {
       audio.play()
-      setIsPlaying(true)
+      turnOnSound()
     }
   }
 
@@ -47,7 +47,7 @@ export const MainOverlay = () => {
             >
               <FontAwesomeIcon
                 className="icon"
-                icon={isPlaying ? faVolumeHigh : faVolumeOff}
+                icon={sound ? faVolumeHigh : faVolumeOff}
               />
             </button>
             <button onClick={changeCam} type="button" title="Free Cam ON/OFF">
@@ -92,6 +92,6 @@ const Wrapper = styled.div`
     }
   }
   .icon {
-    scale: 1.6;
+    scale: 1.4;
   }
 `

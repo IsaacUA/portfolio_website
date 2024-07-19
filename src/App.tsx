@@ -11,11 +11,7 @@ import { MacbookModel } from './components/models/MacbookModel'
 import { FloatingText } from './components/models/FloatingText'
 import { MainOverlay } from './components/MainOverlay'
 import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
-import {
-  initState,
-  ModelProvider,
-  useModel,
-} from './components/context/ModelContext'
+import { initState, ModelProvider, useModel } from './context/ModelContext'
 export default function App() {
   return (
     <>
@@ -32,6 +28,7 @@ export default function App() {
           light={initState.light}
           open={initState.open}
           freeCam={initState.freeCam}
+          sound={initState.sound}
         >
           <Scene />
         </ModelProvider>
@@ -53,15 +50,15 @@ const Scene = () => {
   return (
     <>
       <OrbitControls
-        enableRotate={open ? false : true}
-        autoRotateSpeed={0.5}
-        autoRotate={freeCam ? true : false}
-        minDistance={freeCam ? 30 : 0}
-        maxDistance={70}
         enablePan={false}
-        enableZoom={freeCam ? true : false}
+        autoRotateSpeed={0.5}
+        maxDistance={70}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2.5}
+        enableRotate={open ? false : true}
+        minDistance={freeCam ? 30 : 0}
+        enableZoom={freeCam ? true : false}
+        autoRotate={freeCam ? true : false}
         minAzimuthAngle={freeCam ? undefined : -Math.PI / 8}
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
       />
@@ -93,7 +90,7 @@ const Scene = () => {
       {!freeCam && !open && (
         <FloatingText
           icon={faLaptop}
-          position={[0, 0.5, 6]}
+          position={[0, 0.5, 5]}
           action={openLaptop}
         />
       )}
