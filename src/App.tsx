@@ -39,7 +39,7 @@ export default function App() {
 
 const Scene = () => {
   const { open, light, freeCam, openLaptop, changeLight } = useModel()
-  const ratioParam = window.innerWidth > 1400 ? 1 : window.innerWidth / 1400
+  const ratioParam = Math.min(window.innerWidth / 900, 1)
   console.log('MacbookModel ~ ratioParam:', ratioParam)
   return (
     <>
