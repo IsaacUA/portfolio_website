@@ -33,6 +33,7 @@ export function MacbookModel() {
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const { open, freeCam, openLaptop } = useModel()
   const macToplidRef = useRef<THREE.Mesh>(null!)
+
   const props = useSpring({
     open: Number(open),
     config: {
@@ -68,7 +69,7 @@ export function MacbookModel() {
   })
 
   return (
-    <group {...props} dispose={null} position={[0, -2, 3]} onClick={openLaptop}>
+    <group {...props} dispose={null} position={[0, -2, 3]}>
       <animated.group
         position={[0.002, -0.038, 0.414]}
         rotation-x={props.open.to([0, 1], [1.575, -0.3])}
@@ -88,9 +89,9 @@ export function MacbookModel() {
             material={materials['matte.001']}
           />
           <mesh geometry={nodes.Cube008_2.geometry}>
-            <meshBasicMaterial color={'#000'} />
+            <meshStandardMaterial color={'#000'} />
+
             <Html
-              className="content"
               rotation-x={-Math.PI / 2}
               position={[0, 0.05, -0.09]}
               transform
@@ -132,7 +133,7 @@ export function MacbookModel() {
       >
         {open && (
           <FloatingText
-            position={[-3.4, 0.14, -0.5]}
+            position={[-3.3, 0.17, -0.35]}
             icon={faClose}
             action={openLaptop}
             scale={0.3}

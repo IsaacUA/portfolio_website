@@ -22,8 +22,8 @@ export default function App() {
         dataInterpolation={(p) => `STAND BY ${p.toFixed(0)}%`}
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
-      <Canvas shadows gl={{ powerPreference: 'low-power', precision: 'lowp' }}>
-        <PerspectiveCamera makeDefault={true} position={[-60, 20, 40]} />
+      <Canvas shadows gl={{ powerPreference: 'low-power', antialias: false }}>
+        <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
         <ModelProvider
           light={initState.light}
           open={initState.open}
@@ -32,13 +32,6 @@ export default function App() {
         >
           <Scene />
         </ModelProvider>
-        <ContactShadows
-          scale={100}
-          position={[0, -16, 0]}
-          blur={1}
-          far={20}
-          opacity={0.85}
-        />
       </Canvas>
     </>
   )
@@ -46,7 +39,8 @@ export default function App() {
 
 const Scene = () => {
   const { open, light, freeCam, openLaptop, changeLight } = useModel()
-
+  const ratioParam = window.innerWidth > 1400 ? 1 : window.innerWidth / 1400
+  console.log('MacbookModel ~ ratioParam:', ratioParam)
   return (
     <>
       <OrbitControls
@@ -55,13 +49,14 @@ const Scene = () => {
         maxDistance={70}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2.5}
-        // enableRotate={open ? false : true}
         minDistance={freeCam ? 30 : 0}
         enableZoom={freeCam ? true : false}
         autoRotate={freeCam ? true : false}
         minAzimuthAngle={freeCam ? undefined : -Math.PI / 8}
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
       />
+      <MainOverlay />
+
       {light && (
         <spotLight
           castShadow
@@ -87,24 +82,32 @@ const Scene = () => {
           shadow-normalBias={1}
         />
       )}
-      {!freeCam && !open && (
-        <FloatingText
-          icon={faLaptop}
-          position={[0, 0.5, 5]}
-          action={openLaptop}
-        />
-      )}
-      {!freeCam && (
-        <FloatingText
-          icon={faLightbulb}
-          position={[8.7, 0.5, 3.2]}
-          audioPath={'music/lampClick.wav'}
-          action={changeLight}
-        />
-      )}
-      <MainOverlay />
-      <MacbookModel />
-      <SceneModel />
+      <group scale={ratioParam}>
+        {!freeCam && !open && (
+          <FloatingText
+            icon={faLaptop}
+            position={[0, 0.5, 5]}
+            action={openLaptop}
+          />
+        )}
+        {!freeCam && (
+          <FloatingText
+            icon={faLightbulb}
+            position={[8.7, 0.3, 3.2]}
+            audioPath={'music/lampClick.wav'}
+            action={changeLight}
+          />
+        )}
+        <MacbookModel />
+        <SceneModel />
+      </group>
+      <ContactShadows
+        scale={100}
+        position={[0, -16 * ratioParam, 0]}
+        blur={1}
+        far={20}
+        opacity={0.85}
+      />
       <Environment
         backgroundRotation={[-Math.PI / 2, 0, 0]}
         background

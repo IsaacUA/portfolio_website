@@ -25,7 +25,7 @@ export const FloatingText = ({
   if (audioPath) {
     audio = new Howl({
       src: audioPath,
-      volume: sound ? 0.2 : 0,
+      volume: sound ? 0.1 : 0,
     })
   }
 
@@ -47,8 +47,8 @@ export const FloatingText = ({
 }
 
 const Wrapper = styled.div`
-  width: 4rem;
-  height: 4rem;
+  width: 64px;
+  height: 64px;
   border-radius: 50% 50% 50% 0;
   background: #202025;
   transform: rotate(-45deg);
@@ -63,10 +63,10 @@ const Wrapper = styled.div`
 
   .icon {
     transform: rotate(45deg);
-    font-size: 2rem;
+    font-size: 32px;
   }
   &:hover .icon {
-    font-size: 2.2rem;
+    font-size: 35.2px;
   }
   &:active {
     scale: 1.1;

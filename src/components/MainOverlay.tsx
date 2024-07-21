@@ -18,7 +18,7 @@ export const MainOverlay = () => {
     new Howl({
       src: ['music/backgroundmusic.mp3'],
       loop: true,
-      volume: 0.3,
+      volume: 0.2,
     })
   )
 

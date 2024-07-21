@@ -14,11 +14,14 @@ body {
 }
 
 .screen {
+  border: none;
+  padding: 0;
+  margin: 0;
   width: 1153px;
   height: 750px;
   background-color: #000;
 }
-/* @media (-webkit-device-pixel-ratio: 3) {
+@media (-webkit-device-pixel-ratio: 3) {
   .screen {
     margin-top: -3rem;
     margin-left: -3rem;
@@ -28,7 +31,7 @@ body {
   .screen {
     margin-top: 0rem;
   }
-} */
+}
 
 .wrapper {
   width: inherit;
