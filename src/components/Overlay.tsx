@@ -6,7 +6,7 @@ const Overlay = () => {
       <section>
         <h1
           style={{
-            fontSize: '3rem',
+            fontSize: '48px',
             margin: '0',
           }}
         >
@@ -27,7 +27,7 @@ const Overlay = () => {
           ]}
           speed={50}
           style={{
-            fontSize: '1.3rem',
+            fontSize: '20.8px',
             display: 'inline-block',
             fontFamily: 'fonts/JetBrainsMono_Regular.ttf',
             textAlign: 'justify',

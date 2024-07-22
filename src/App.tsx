@@ -12,7 +12,55 @@ import { FloatingText } from './components/models/FloatingText'
 import { MainOverlay } from './components/MainOverlay'
 import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { initState, ModelProvider, useModel } from './context/ModelContext'
+import { useEffect, useRef, useState } from 'react'
+import { isMobile, isSafari } from 'react-device-detect'
+
 export default function App() {
+  // Quick fix of DPI bug with Drei HTML element
+  const [height, setHeight] = useState('100dvh')
+  const [width, setWidth] = useState('100vw')
+  const canvasRef = useRef<HTMLDivElement>(null!)
+
+  useEffect(() => {
+    const measureCanvasSize = () => {
+      const canvasElement = canvasRef.current
+      if (canvasElement) {
+        const canvasHeight = canvasElement.clientHeight
+        const canvasWidth = canvasElement.clientWidth
+
+        if (isSafari) {
+          if (canvasHeight % 2 !== 0) {
+            setHeight(`${canvasHeight - 1}px`)
+          } else {
+            setHeight(`${canvasHeight}px`)
+          }
+
+          if (canvasWidth % 2 !== 0) {
+            setWidth(`${canvasWidth - 1}px`)
+          } else {
+            setWidth(`${canvasWidth}px`)
+          }
+        } else {
+          setHeight('100dvh')
+          setWidth('100vw')
+        }
+      }
+    }
+
+    window.requestAnimationFrame(measureCanvasSize)
+
+    const handleResize = () => {
+      measureCanvasSize()
+    }
+
+    if (!isMobile && isSafari) {
+      window.addEventListener('resize', handleResize)
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+  }, [])
+
   return (
     <>
       <Loader
@@ -22,17 +70,19 @@ export default function App() {
         dataInterpolation={(p) => `STAND BY ${p.toFixed(0)}%`}
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
-      <Canvas shadows gl={{ powerPreference: 'low-power', antialias: false }}>
-        <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
-        <ModelProvider
-          light={initState.light}
-          open={initState.open}
-          freeCam={initState.freeCam}
-          sound={initState.sound}
-        >
-          <Scene />
-        </ModelProvider>
-      </Canvas>
+      <div style={{ height: height, width: width }} ref={canvasRef}>
+        <Canvas shadows gl={{ antialias: !isMobile }}>
+          <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
+          <ModelProvider
+            light={initState.light}
+            open={initState.open}
+            freeCam={initState.freeCam}
+            sound={initState.sound}
+          >
+            <Scene />
+          </ModelProvider>
+        </Canvas>
+      </div>
     </>
   )
 }
@@ -40,7 +90,6 @@ export default function App() {
 const Scene = () => {
   const { open, light, freeCam, openLaptop, changeLight } = useModel()
   const ratioParam = Math.min(window.innerWidth / 900, 1)
-  console.log('MacbookModel ~ ratioParam:', ratioParam)
   return (
     <>
       <OrbitControls

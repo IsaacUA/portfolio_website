@@ -7,10 +7,18 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-body {
+  font-size: 16px;
   background: #202025;
+}
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 425px) {
+  html {
+    font-size: 10px;
+  }
 }
 
 .screen {
@@ -20,6 +28,15 @@ body {
   width: 1153px;
   height: 750px;
   background-color: #000;
+}
+/* Quick fix of DPI bug with Drei HTML element */
+@supports (hanging-punctuation: first) and (font: -apple-system-body) and
+  (-webkit-appearance: none) {
+  @media (-webkit-device-pixel-ratio: 3) {
+    .screen {
+      transform: translateX(-4.5%);
+    }
+  }
 }
 
 .wrapper {
@@ -45,7 +62,7 @@ section h1 {
   color: #fff;
   font-weight: 300;
   line-height: 1.2;
-  font-size: 2.3rem;
+  font-size: 36.8px;
   text-align: center;
   text-shadow: 3px 1px #0ffbf9, -3px 1px #ff3f4a;
 }

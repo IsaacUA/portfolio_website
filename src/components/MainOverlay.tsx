@@ -64,7 +64,7 @@ export const MainOverlay = () => {
 }
 
 const Wrapper = styled.div`
-  margin: 4rem;
+  margin: 3rem;
   max-width: 17rem;
   font-family: 'fonts/JetBrainsMono_Regular.ttf';
   -webkit-user-select: none;
