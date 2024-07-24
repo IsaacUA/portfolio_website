@@ -49,9 +49,9 @@ export function MacbookModel() {
         {
           x: 0,
           y: 2,
-          z: 11,
+          z: 10,
         },
-        0.01
+        0.05
       )
     }
 
@@ -62,7 +62,7 @@ export function MacbookModel() {
           y: 10,
           z: 30,
         },
-        0.01
+        0.05
       )
     }
     state.camera.lookAt(0, 0, 0)
@@ -98,7 +98,7 @@ export function MacbookModel() {
               scale={0.29}
               occlude={[macToplidRef]}
             >
-              <div className="screen">{open && <Overlay />}</div>
+              <div className="screen">{<Overlay />}</div>
             </Html>
           </mesh>
         </group>

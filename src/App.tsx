@@ -20,7 +20,6 @@ export default function App() {
   const [height, setHeight] = useState('100dvh')
   const [width, setWidth] = useState('100vw')
   const canvasRef = useRef<HTMLDivElement>(null!)
-
   useEffect(() => {
     const measureCanvasSize = () => {
       const canvasElement = canvasRef.current
@@ -46,13 +45,10 @@ export default function App() {
         }
       }
     }
-
     window.requestAnimationFrame(measureCanvasSize)
-
     const handleResize = () => {
       measureCanvasSize()
     }
-
     if (!isMobile && isSafari) {
       window.addEventListener('resize', handleResize)
       return () => {
@@ -71,7 +67,13 @@ export default function App() {
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
       <div style={{ height: height, width: width }} ref={canvasRef}>
-        <Canvas shadows gl={{ antialias: !isMobile }}>
+        <Canvas
+          shadows
+          gl={{
+            antialias: true,
+            powerPreference: 'high-performance',
+          }}
+        >
           <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
           <ModelProvider
             light={initState.light}
@@ -93,6 +95,7 @@ const Scene = () => {
   return (
     <>
       <OrbitControls
+        enableRotate={!open}
         enablePan={false}
         autoRotateSpeed={0.5}
         maxDistance={70}
@@ -105,32 +108,27 @@ const Scene = () => {
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
       />
       <MainOverlay />
-
-      {light && (
-        <spotLight
-          castShadow
-          angle={2.6}
-          position={[8, 5.5, 4]}
-          intensity={1}
-          power={10}
-          distance={20}
-          decay={0.2}
-          shadow-normalBias={1}
-        />
-      )}
-      {light || (
-        <directionalLight
-          castShadow
-          position={[12, 8, 10]}
-          intensity={4}
-          shadow-mapSize={[8024, 8024]}
-          shadow-camera-left={-400}
-          shadow-camera-right={100}
-          shadow-camera-top={100}
-          shadow-camera-bottom={-100}
-          shadow-normalBias={1}
-        />
-      )}
+      <spotLight
+        castShadow
+        angle={2.6}
+        position={[8, 5.5, 4]}
+        intensity={light ? 2 : 0}
+        power={10}
+        distance={20}
+        decay={0.2}
+        shadow-normalBias={1}
+      />
+      <directionalLight
+        castShadow
+        position={[12, 8, 10]}
+        intensity={light ? 0 : 4}
+        shadow-mapSize={[4024, 4024]}
+        shadow-camera-left={-400}
+        shadow-camera-right={100}
+        shadow-camera-top={100}
+        shadow-camera-bottom={-100}
+        shadow-normalBias={1}
+      />
       <group scale={ratioParam}>
         {!freeCam && !open && (
           <FloatingText
@@ -143,7 +141,7 @@ const Scene = () => {
           <FloatingText
             icon={faLightbulb}
             position={[8.7, 0.3, 3.2]}
-            audioPath={'music/lampClick.wav'}
+            audioPath={'music/lampClick.webm'}
             action={changeLight}
           />
         )}

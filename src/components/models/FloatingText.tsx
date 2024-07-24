@@ -26,6 +26,7 @@ export const FloatingText = ({
     audio = new Howl({
       src: audioPath,
       volume: sound ? 0.1 : 0,
+      preload: true,
     })
   }
 
@@ -60,15 +61,47 @@ const Wrapper = styled.div`
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  @media screen and (max-width: 768px) {
+    width: 84px;
+    height: 84px;
+  }
+  @media screen and (max-width: 425px) {
+    width: 100px;
+    height: 100px;
+  }
 
   .icon {
     transform: rotate(45deg);
     font-size: 32px;
+    @media screen and (max-width: 768px) {
+      font-size: 42px;
+    }
+    @media screen and (max-width: 425px) {
+      font-size: 52px;
+    }
   }
   &:hover .icon {
-    font-size: 35.2px;
+    font-size: 36px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 46px;
+    }
+    @media screen and (max-width: 425px) {
+      font-size: 58px;
+    }
   }
   &:active {
-    scale: 1.1;
+    width: 67px;
+    height: 67px;
+    @media screen and (max-width: 768px) {
+      width: 88px;
+      height: 88px;
+    }
+    @media screen and (max-width: 425px) {
+      width: 106px;
+      height: 106px;
+    }
   }
 `

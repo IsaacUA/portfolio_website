@@ -27,7 +27,7 @@ const Overlay = () => {
           ]}
           speed={50}
           style={{
-            fontSize: '20.8px',
+            fontSize: '25.8px',
             display: 'inline-block',
             fontFamily: 'fonts/JetBrainsMono_Regular.ttf',
             textAlign: 'justify',

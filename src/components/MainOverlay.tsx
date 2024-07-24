@@ -16,9 +16,10 @@ export const MainOverlay = () => {
 
   const bgaudioRef = useRef(
     new Howl({
-      src: ['music/backgroundmusic.mp3'],
+      src: ['music/backgroundmusic.webm'],
       loop: true,
       volume: 0.2,
+      preload: true,
     })
   )
 
