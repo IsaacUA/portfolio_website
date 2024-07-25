@@ -3,11 +3,10 @@ import { Html, useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { animated, useSpring } from '@react-spring/three'
 import { useRef } from 'react'
-import Overlay from '../Overlay'
 import { useModel } from '../../context/ModelContext'
 import { useFrame } from '@react-three/fiber'
 import { FloatingText } from './FloatingText'
-import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -98,7 +97,14 @@ export function MacbookModel() {
               scale={0.29}
               occlude={[macToplidRef]}
             >
-              <div className="screen">{<Overlay />}</div>
+              <div className="screen">
+                <iframe
+                  src="https://isaacazimovua.github.io/portfolio_inner-website/"
+                  frameBorder={0}
+                  width={1152}
+                  height={750}
+                />
+              </div>
             </Html>
           </mesh>
         </group>
@@ -136,6 +142,18 @@ export function MacbookModel() {
             position={[-3.3, 0.17, -0.35]}
             icon={faClose}
             action={openLaptop}
+            scale={0.3}
+            occlude={true}
+          />
+        )}
+        {open && (
+          <FloatingText
+            position={[-2.3, 0.17, -0.35]}
+            icon={faUpRightFromSquare}
+            action={() => {
+              location.href =
+                'https://isaacazimovua.github.io/portfolio_inner-website/'
+            }}
             scale={0.3}
             occlude={true}
           />
