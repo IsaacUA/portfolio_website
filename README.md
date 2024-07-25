@@ -1,4 +1,4 @@
-# 3D Portfolio Workspace 🚀
+# My Portfolio Website 🚀
 
 Welcome to my Personal Corner 🌟! This is one of the two repositories for the same project. It’s built with a modern tech stack to create a dynamic and interactive experience in 3D.
 
@@ -14,29 +14,6 @@ Take a look at the live demo [here](https://isaacazimovua.github.io/portfolio_we
 - **@react-spring/three**: For smooth animations.
 - **styled-components**: For clean and modern styling.
 - **howler.js**: For sound effects.
-
-## Packages Used 📦
-
-```json
-{
-  "@fortawesome/free-solid-svg-icons": "^6.5.2",
-  "@fortawesome/react-fontawesome": "^0.2.2",
-  "@react-spring/three": "^9.7.3",
-  "@react-spring/types": "^9.7.3",
-  "@react-three/drei": "^9.108.1",
-  "@react-three/fiber": "^8.16.8",
-  "@react-three/postprocessing": "^2.16.2",
-  "@types/howler": "^2.2.11",
-  "howler": "^2.2.4",
-  "leva": "^0.9.35",
-  "react": "^18.3.1",
-  "react-device-detect": "^2.2.3",
-  "react-dom": "^18.3.1",
-  "react-spring": "^9.7.3",
-  "react-type-animation": "^3.2.0",
-  "styled-components": "^6.1.11"
-}
-```
 
 ## Getting Started
 
@@ -57,7 +34,7 @@ This project is under the MIT License. Check the [LICENSE](LICENSE) file for mor
 
 ## Get in Touch 📧
 
-Got questions or feedback? Reach out to me at [your_email@example.com].
+Got questions or feedback? Reach out to me at [dmytro.hordus@gmail.com].
 
 ---
 
