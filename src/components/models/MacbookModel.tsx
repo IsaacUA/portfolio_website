@@ -50,7 +50,7 @@ export function MacbookModel() {
           y: 2,
           z: 11,
         },
-        0.05
+        0.02
       )
     }
 
