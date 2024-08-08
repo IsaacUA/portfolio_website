@@ -90,22 +90,24 @@ export function MacbookModel() {
           <mesh geometry={nodes.Cube008_2.geometry}>
             <meshStandardMaterial color={'#000'} />
 
-            <Html
-              rotation-x={-Math.PI / 2}
-              position={[0, 0.05, -0.09]}
-              transform
-              scale={0.29}
-              occlude={[macToplidRef]}
-            >
-              <div className="screen">
-                <iframe
-                  src="https://isaacazimovua.github.io/portfolio_inner-website/"
-                  frameBorder={0}
-                  width={1152}
-                  height={750}
-                />
-              </div>
-            </Html>
+            {open && (
+              <Html
+                rotation-x={-Math.PI / 2}
+                position={[0, 0.05, -0.09]}
+                transform
+                scale={0.29}
+                occlude={[macToplidRef]}
+              >
+                <div className="screen">
+                  <iframe
+                    src="https://isaacazimovua.github.io/portfolio_inner-website/"
+                    frameBorder={0}
+                    width={1152}
+                    height={750}
+                  />
+                </div>
+              </Html>
+            )}
           </mesh>
         </group>
       </animated.group>
