@@ -4752,17 +4752,23 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             document.addEventListener('click', function(event) {
               console.log('Click event:', event);
               var target = event.target;
-              if (target.tagName === 'A') {
-                event.preventDefault(); // Prevent default link behavior
-                var url = target.href;
-                console.log('Link clicked, URL:', url);
-                
-                // Check if the link should open in a new tab
-                if (target.target === '_blank') {
-                  window.parent.postMessage({ type: 'navigate', url: url }, '*');
-                } else {
-                  window.location.href = url; // Navigate within the iframe
+              
+              // Traverse up the DOM to find the anchor element
+              while (target && target !== document) {
+                if (target.tagName === 'A') {
+                  event.preventDefault(); // Prevent default link behavior
+                  var url = target.href;
+                  console.log('Link clicked, URL:', url);
+                  
+                  // Check if the link should open in a new tab
+                  if (target.target === '_blank') {
+                    window.parent.postMessage({ type: 'navigate', url: url }, '*');
+                  } else {
+                    window.location.href = url; // Navigate within the iframe
+                  }
+                  return; // Stop further processing
                 }
+                target = target.parentElement; // Move up the DOM tree
               }
             });
           `,r.body.appendChild(s)}},i=r=>{if(console.log("Message received:",r.data),r.data.type==="navigate"&&typeof r.data.url=="string"){const s=e.contentWindow;s&&(s.location.href=r.data.url)}};return e.addEventListener("load",t),window.addEventListener("message",i),()=>{e.removeEventListener("load",t),window.removeEventListener("message",i)}}},[]),Ze.jsx("iframe",{ref:n,src:"https://isaacazimovua.github.io/portfolio_inner-website/",frameBorder:"0",width:"1152",height:"750"})};function KK(){const{nodes:n,materials:e}=Rc("models/mac.glb"),{open:t,freeCam:i,openLaptop:r}=Xy(),s=ne.useRef(null),o=Tj({open:Number(t),config:{mass:50,tension:t?151:120,friction:130}});return Bf(a=>{t&&!i&&a.camera.position.lerp({x:0,y:2,z:11},.02),!t&&!i&&a.camera.position.lerp({x:0,y:10,z:30},.05),a.camera.lookAt(0,0,0)}),document.addEventListener("DOMContentLoaded",()=>{var l;const a=document.querySelector("iframe");if(a){const f=async d=>{try{const g=await(await fetch(d)).text();a.contentDocument&&(a.contentDocument.open(),a.contentDocument.write(g),a.contentDocument.close())}catch(m){console.error("Error loading iframe content:",m)}},p="https://isaacazimovua.github.io/portfolio_inner-website/";f(p),a.addEventListener("load",()=>{var d;((d=a.contentDocument)==null?void 0:d.body.innerHTML)===""&&f(p)});const c=(l=a.contentDocument)==null?void 0:l.querySelectorAll("a.jump-link");c==null||c.forEach(d=>{d.addEventListener("click",m=>{m.preventDefault();const g=m.target;f(g.href)})})}else console.error("Iframe not found")}),Ze.jsxs("group",{...o,dispose:null,position:[0,-2,3],children:[Ze.jsx(Bj.group,{position:[.002,-.038,.414],"rotation-x":o.open.to([0,1],[1.575,-.3]),rotation:[0,0,0],children:Ze.jsxs("group",{position:[0,2.965,-.13],rotation:[Math.PI/2,0,0],children:[Ze.jsx("mesh",{ref:s,castShadow:!0,receiveShadow:!0,geometry:n.Cube008.geometry,material:e.aluminium}),Ze.jsx("mesh",{castShadow:!0,geometry:n.Cube008_1.geometry,material:e["matte.001"]}),Ze.jsxs("mesh",{geometry:n.Cube008_2.geometry,children:[Ze.jsx("meshStandardMaterial",{color:"#000"}),t&&Ze.jsx(WM,{"rotation-x":-Math.PI/2,position:[0,.05,-.09],transform:!0,scale:.29,occlude:[s],style:{position:"relative"},children:Ze.jsx("div",{className:"screen",children:Ze.jsx(YK,{})})})]})]})}),Ze.jsx("mesh",{castShadow:!0,receiveShadow:!0,geometry:n.keyboard.geometry,material:e.keys,position:[1.793,0,3.451]}),Ze.jsxs("group",{position:[0,-.1,3.394],children:[Ze.jsx("mesh",{castShadow:!0,receiveShadow:!0,geometry:n.Cube002.geometry,material:e.aluminium}),Ze.jsx("mesh",{castShadow:!0,receiveShadow:!0,geometry:n.Cube002_1.geometry,material:e.trackpad})]}),Ze.jsxs("mesh",{castShadow:!0,receiveShadow:!0,geometry:n.touchbar.geometry,material:e.touchbar,position:[0,-.027,1.201],children:[t&&Ze.jsx(Uv,{position:[-3.3,.17,-.35],icon:jK,action:r,scale:.3,occlude:!0}),t&&Ze.jsx(Uv,{position:[-2.3,.17,-.35],icon:VK,action:()=>{location.href="https://isaacazimovua.github.io/portfolio_inner-website/"},scale:.3,occlude:!0})]})]})}Rc.preload("models/mac.glb");var AN={};/*!
