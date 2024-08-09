@@ -4752,8 +4752,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             document.addEventListener('click', function(event) {
               console.log('Click event:', event);
               var target = event.target;
-              
-              // Traverse up the DOM to find the anchor element
+
+              // Traverse up the DOM to find an anchor element
               while (target && target !== document) {
                 if (target.tagName === 'A') {
                   event.preventDefault(); // Prevent default link behavior
