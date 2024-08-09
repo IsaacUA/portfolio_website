@@ -97,14 +97,16 @@ export function MacbookModel() {
                 transform
                 scale={0.29}
                 occlude={[macToplidRef]}
+                style={{ position: 'relative' }}
               >
                 <div className="screen">
                   <iframe
                     src="https://isaacazimovua.github.io/portfolio_inner-website/"
-                    frameBorder={0}
-                    width={1152}
-                    height={750}
-                  />
+                    name="myiFrame"
+                    frameBorder="0"
+                    width="1152"
+                    height="750"
+                  ></iframe>
                 </div>
               </Html>
             )}

@@ -12,7 +12,25 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@iframe-resizer/react": "^5.2.3",
+    "@react-spring/three": "^9.7.3",
+    "@react-spring/types": "^9.7.3",
+    "@react-three/drei": "^9.108.1",
+    "@react-three/fiber": "^8.16.8",
+    "@react-three/postprocessing": "^2.16.2",
+    "@types/howler": "^2.2.11",
+    "howler": "^2.2.4",
+    "leva": "^0.9.35",
+    "react": "^18.3.1",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.3.1",
+    "react-spring": "^9.7.3",
+    "react-type-animation": "^3.2.0",
+    "styled-components": "^6.1.11"
+  },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
