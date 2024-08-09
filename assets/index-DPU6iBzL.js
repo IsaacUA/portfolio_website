@@ -4751,15 +4751,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             console.log('Injected script running');
             document.addEventListener('click', function(event) {
               console.log('Click event:', event);
-              // Determine if the event is a PointerEvent or MouseEvent
-              const target = event.target as HTMLElement;
+              var target = event.target;
               if (target.tagName === 'A') {
                 event.preventDefault(); // Prevent default link behavior
-                const url = (target as HTMLAnchorElement).href;
+                var url = target.href;
                 console.log('Link clicked, URL:', url);
                 
                 // Check if the link should open in a new tab
-                if ((target as HTMLAnchorElement).target === '_blank') {
+                if (target.target === '_blank') {
                   window.parent.postMessage({ type: 'navigate', url: url }, '*');
                 } else {
                   window.location.href = url; // Navigate within the iframe
