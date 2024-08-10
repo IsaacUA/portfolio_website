@@ -13,7 +13,7 @@ import { MainOverlay } from './components/MainOverlay'
 import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { initState, ModelProvider, useModel } from './context/ModelContext'
 import { useEffect, useRef, useState } from 'react'
-import { isMobile, isSafari } from 'react-device-detect'
+import { isSafari } from 'react-device-detect'
 
 export default function App() {
   // Quick fix of DPI bug with Drei HTML element
@@ -28,20 +28,21 @@ export default function App() {
         const canvasWidth = canvasElement.clientWidth
 
         if (isSafari) {
-          if (canvasHeight % 2 !== 0) {
-            setHeight(`${canvasHeight - 1}px`)
-          } else {
-            setHeight(`${canvasHeight}px`)
-          }
-
           if (canvasWidth % 2 !== 0) {
+            console.log('Changed width', canvasWidth)
             setWidth(`${canvasWidth - 1}px`)
           } else {
             setWidth(`${canvasWidth}px`)
           }
+          if (canvasHeight % 2 !== 0) {
+            console.log('Changed height', canvasHeight)
+            setHeight(`${canvasHeight - 1}px`)
+          } else {
+            setHeight(`${canvasHeight}px`)
+          }
         } else {
           setHeight('100dvh')
-          setWidth('100vw')
+          setWidth('100wh')
         }
       }
     }
@@ -49,7 +50,7 @@ export default function App() {
     const handleResize = () => {
       measureCanvasSize()
     }
-    if (!isMobile && isSafari) {
+    if (isSafari) {
       window.addEventListener('resize', handleResize)
       return () => {
         window.removeEventListener('resize', handleResize)

@@ -31,7 +31,6 @@ type GLTFResult = GLTF & {
 }
 
 export function MacbookModel() {
-  console.log('MacbookModel ~ VITE_APP_INNER_WEBSITE:', VITE_APP_INNER_WEBSITE)
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const { open, freeCam, openLaptop } = useModel()
   const macToplidRef = useRef<THREE.Mesh>(null!)
@@ -101,7 +100,16 @@ export function MacbookModel() {
               occlude={[macToplidRef]}
               style={{ position: 'relative' }}
             >
-              <div className="screen">
+              <div
+                style={{
+                  border: 'none',
+                  padding: '0',
+                  margin: '0',
+                  width: '1152px',
+                  height: '750px',
+                  backgroundColor: '#000',
+                }}
+              >
                 {open && (
                   <iframe
                     src={VITE_APP_INNER_WEBSITE}
