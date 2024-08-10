@@ -92,7 +92,7 @@ export default function App() {
 
 const Scene = () => {
   const { open, light, freeCam, openLaptop, changeLight } = useModel()
-  const ratioParam = Math.min(window.innerWidth / 820, 1)
+  const ratioParam = Math.min(window.innerWidth / 725, 1)
   return (
     <>
       <OrbitControls
