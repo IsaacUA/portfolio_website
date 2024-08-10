@@ -12,6 +12,7 @@
   @media (-webkit-device-pixel-ratio: 3) {
     .screen {
       transform: translateX(-4.5%);
+      -webkit-transform: translateX(-4.5%);
     }
   }
 }

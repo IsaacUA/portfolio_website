@@ -8,6 +8,8 @@ import { useFrame } from '@react-three/fiber'
 import { FloatingText } from './FloatingText'
 import { faClose, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
+const { VITE_APP_INNER_WEBSITE } = import.meta.env
+
 type GLTFResult = GLTF & {
   nodes: {
     Cube008: THREE.Mesh
@@ -29,6 +31,7 @@ type GLTFResult = GLTF & {
 }
 
 export function MacbookModel() {
+  console.log('MacbookModel ~ VITE_APP_INNER_WEBSITE:', VITE_APP_INNER_WEBSITE)
   const { nodes, materials } = useGLTF('models/mac.glb') as GLTFResult
   const { open, freeCam, openLaptop } = useModel()
   const macToplidRef = useRef<THREE.Mesh>(null!)
@@ -50,7 +53,7 @@ export function MacbookModel() {
           y: 2,
           z: 11,
         },
-        0.02
+        0.04
       )
     }
 
@@ -61,7 +64,7 @@ export function MacbookModel() {
           y: 10,
           z: 30,
         },
-        0.05
+        0.1
       )
     }
     state.camera.lookAt(0, 0, 0)
@@ -90,26 +93,26 @@ export function MacbookModel() {
           <mesh geometry={nodes.Cube008_2.geometry}>
             <meshStandardMaterial color={'#000'} />
 
-            {open && (
-              <Html
-                rotation-x={-Math.PI / 2}
-                position={[0, 0.05, -0.09]}
-                transform
-                scale={0.29}
-                occlude={[macToplidRef]}
-                style={{ position: 'relative' }}
-              >
-                <div className="screen">
+            <Html
+              rotation-x={-Math.PI / 2}
+              position={[0, 0.05, -0.09]}
+              transform
+              scale={0.29}
+              occlude={[macToplidRef]}
+              style={{ position: 'relative' }}
+            >
+              <div className="screen">
+                {open && (
                   <iframe
-                    src="https://isaacazimovua.github.io/portfolio_inner-website/"
+                    src={VITE_APP_INNER_WEBSITE}
                     name="myiFrame"
                     frameBorder="0"
                     width="1152"
                     height="750"
-                  ></iframe>
-                </div>
-              </Html>
-            )}
+                  />
+                )}
+              </div>
+            </Html>
           </mesh>
         </group>
       </animated.group>
@@ -155,8 +158,7 @@ export function MacbookModel() {
             position={[-2.3, 0.17, -0.35]}
             icon={faUpRightFromSquare}
             action={() => {
-              location.href =
-                'https://isaacazimovua.github.io/portfolio_inner-website/'
+              location.href = VITE_APP_INNER_WEBSITE
             }}
             scale={0.3}
             occlude={true}
