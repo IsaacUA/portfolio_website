@@ -1,10 +1,10 @@
-# My Portfolio Website 🚀
+# My 3D Portfolio Website 🚀
 
-Welcome to my Personal Corner 🌟! This is one of the two repositories for the same project. It’s built with a modern tech stack to create a dynamic and interactive experience in 3D.
+Welcome to the immersive side of my Portfolio 🌟! This repository hosts the 3D experience of my portfolio, offering a dynamic and interactive way to explore my work. It's connected to a simpler, responsive [landing page](https://isaacazimovua.github.io/portfolio_inner-website/) via an iframe.
 
 ## Check It Out 👀
 
-Take a look at the live demo [here](https://isaacazimovua.github.io/portfolio_website/).
+Take a look at the live demo [here](https://isaacazimovua.github.io/portfolio_website/) 🌍.
 
 ## What's Inside 🛠️
 
@@ -17,12 +17,27 @@ Take a look at the live demo [here](https://isaacazimovua.github.io/portfolio_we
 
 ## Getting Started
 
-```sh
-git clone https://github.com/isaacazimovua/portfolio_website.git
-cd portfolio_website
-npm install
-npm run dev
-```
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/isaacazimovua/portfolio_website.git
+   cd portfolio_website
+   ```
+
+2. Create a \`.env\` file in the root of the project and add the following:
+
+   ```env
+   VITE_APP_INNER_WEBSITE="INNER_WEBSITE"
+   ```
+
+   Replace \`"INNER_WEBSITE"\` with the actual link to your inner website.
+
+3. Install dependencies and run the development server:
+
+   ```sh
+   npm install
+   npm run dev
+   ```
 
 ## Contributing 🤝
 
@@ -34,8 +49,8 @@ This project is under the MIT License. Check the [LICENSE](LICENSE) file for mor
 
 ## Get in Touch 📧
 
-Got questions or feedback? Reach out to me at [dmytro.hordus@gmail.com].
+Questions or feedback? You can reach me at [dmytro.hordus@gmail.com].
 
 ---
 
-Enjoy exploring my Personal Corner in 3D! 🧑‍🚀
+Explore the 3D experience, and don't forget to check out the landing page! 🌐 [Visit my Landing Page](https://isaacazimovua.github.io/portfolio_inner-website/) 🚀
