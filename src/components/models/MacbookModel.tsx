@@ -110,15 +110,13 @@ export function MacbookModel() {
                   backgroundColor: '#000',
                 }}
               >
-                {open && (
-                  <iframe
-                    src={VITE_APP_INNER_WEBSITE}
-                    name="myiFrame"
-                    frameBorder="0"
-                    width="1152"
-                    height="750"
-                  />
-                )}
+                <iframe
+                  src={VITE_APP_INNER_WEBSITE}
+                  name="myiFrame"
+                  frameBorder="0"
+                  width="1152"
+                  height="750"
+                />
               </div>
             </Html>
           </mesh>

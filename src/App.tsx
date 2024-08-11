@@ -14,6 +14,7 @@ import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { initState, ModelProvider, useModel } from './context/ModelContext'
 import { useEffect, useRef, useState } from 'react'
 import { isSafari } from 'react-device-detect'
+import { Lights } from './components/models/Lights'
 
 export default function App() {
   // Quick fix of DPI bug with Drei HTML element
@@ -109,16 +110,7 @@ const Scene = () => {
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
       />
       <MainOverlay />
-      <spotLight
-        castShadow
-        angle={2.6}
-        position={[8, 5.5, 4]}
-        intensity={light ? 2 : 0}
-        power={10}
-        distance={20}
-        decay={0.2}
-        shadow-normalBias={1}
-      />
+      {light && <Lights position={[7.6, 1.9, 3.7]} />}
       <directionalLight
         castShadow
         position={[12, 8, 10]}
