@@ -7,6 +7,7 @@ import { useModel } from '../../context/ModelContext'
 import { useFrame } from '@react-three/fiber'
 import { FloatingText } from './FloatingText'
 import { faClose, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import Iframe from './Iframe'
 
 const { VITE_APP_INNER_WEBSITE } = import.meta.env
 
@@ -110,13 +111,7 @@ export function MacbookModel() {
                   backgroundColor: '#000',
                 }}
               >
-                <iframe
-                  src={VITE_APP_INNER_WEBSITE}
-                  name="myiFrame"
-                  frameBorder="0"
-                  width="1152"
-                  height="750"
-                />
+                {open && <Iframe />}
               </div>
             </Html>
           </mesh>

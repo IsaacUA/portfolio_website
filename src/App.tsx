@@ -110,7 +110,6 @@ const Scene = () => {
         maxAzimuthAngle={freeCam ? undefined : Math.PI / 8}
       />
       <MainOverlay />
-      {light && <Lights position={[7.6, 1.9, 3.7]} />}
       <directionalLight
         castShadow
         position={[12, 8, 10]}
@@ -123,6 +122,7 @@ const Scene = () => {
         shadow-normalBias={1}
       />
       <group scale={ratioParam}>
+        {light && <Lights position={[7.6, 1.9, 3.7]} />}
         {!freeCam && !open && (
           <FloatingText
             icon={faLaptop}
@@ -151,7 +151,7 @@ const Scene = () => {
       <Environment
         backgroundRotation={[-Math.PI / 2, 0, 0]}
         background
-        backgroundBlurriness={1}
+        // backgroundBlurriness={1}
         files={'hdr/background.hdr'}
         backgroundIntensity={light ? 0.04 : 0.6}
         environmentIntensity={light ? 0.1 : 1}
