@@ -1,10 +1,10 @@
 # My 3D Portfolio Website 🚀
 
-Welcome to the immersive side of my Portfolio 🌟! This repository hosts the 3D experience of my portfolio, offering a dynamic and interactive way to explore my work. It's connected to a simpler, responsive [landing page](https://isaacazimovua.github.io/portfolio_inner-website/) via an iframe.
+Welcome to the immersive side of my Portfolio 🌟! This repository hosts the 3D experience of my portfolio, offering a dynamic and interactive way to explore my work. It's connected to a simpler, responsive [landing page](https://isaacua.github.io/portfolio_inner-website/) via an iframe.
 
 ## Check It Out 👀
 
-Take a look at the live demo [here](https://isaacazimovua.github.io/portfolio_website/) 🌍.
+Take a look at the live demo [here](https://isaacua.github.io/portfolio_website/) 🌍.
 
 ## What's Inside 🛠️
 
