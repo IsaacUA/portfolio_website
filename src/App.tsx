@@ -12,53 +12,10 @@ import { FloatingText } from './components/models/FloatingText'
 import { MainOverlay } from './components/MainOverlay'
 import { faLaptop, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { initState, ModelProvider, useModel } from './context/ModelContext'
-import { useEffect, useRef, useState } from 'react'
-import { isSafari } from 'react-device-detect'
 import { Lights } from './components/models/Lights'
+import { CanvasWrapper } from '@isaac_ua/drei-html-fix'
 
 export default function App() {
-  // Quick fix of DPI bug with Drei HTML element
-  const [height, setHeight] = useState('100dvh')
-  const [width, setWidth] = useState('100vw')
-  const canvasRef = useRef<HTMLDivElement>(null!)
-  useEffect(() => {
-    const measureCanvasSize = () => {
-      const canvasElement = canvasRef.current
-      if (canvasElement) {
-        const canvasHeight = canvasElement.clientHeight
-        const canvasWidth = canvasElement.clientWidth
-
-        if (isSafari) {
-          if (canvasWidth % 2 !== 0) {
-            console.log('Changed width', canvasWidth)
-            setWidth(`${canvasWidth - 1}px`)
-          } else {
-            setWidth(`${canvasWidth}px`)
-          }
-          if (canvasHeight % 2 !== 0) {
-            console.log('Changed height', canvasHeight)
-            setHeight(`${canvasHeight - 1}px`)
-          } else {
-            setHeight(`${canvasHeight}px`)
-          }
-        } else {
-          setHeight('100dvh')
-          setWidth('100wh')
-        }
-      }
-    }
-    window.requestAnimationFrame(measureCanvasSize)
-    const handleResize = () => {
-      measureCanvasSize()
-    }
-    if (isSafari) {
-      window.addEventListener('resize', handleResize)
-      return () => {
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-  }, [])
-
   return (
     <>
       <Loader
@@ -68,7 +25,7 @@ export default function App() {
         dataInterpolation={(p) => `STAND BY ${p.toFixed(0)}%`}
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
-      <div style={{ height: height, width: width }} ref={canvasRef}>
+      <CanvasWrapper>
         <Canvas
           shadows
           gl={{
@@ -86,7 +43,7 @@ export default function App() {
             <Scene />
           </ModelProvider>
         </Canvas>
-      </div>
+      </CanvasWrapper>
     </>
   )
 }
@@ -151,7 +108,7 @@ const Scene = () => {
       <Environment
         backgroundRotation={[-Math.PI / 2, 0, 0]}
         background
-        // backgroundBlurriness={1}
+        backgroundBlurriness={1}
         files={'hdr/background.hdr'}
         backgroundIntensity={light ? 0.04 : 0.6}
         environmentIntensity={light ? 0.1 : 1}

@@ -146,24 +146,24 @@ export function MacbookModel() {
         position={[0, -0.027, 1.201]}
       >
         {open && (
-          <FloatingText
-            position={[-3.3, 0.17, -0.35]}
-            icon={faClose}
-            action={openLaptop}
-            scale={0.3}
-            occlude={true}
-          />
-        )}
-        {open && (
-          <FloatingText
-            position={[-2.3, 0.17, -0.35]}
-            icon={faUpRightFromSquare}
-            action={() => {
-              location.href = VITE_APP_INNER_WEBSITE
-            }}
-            scale={0.3}
-            occlude={true}
-          />
+          <>
+            <FloatingText
+              position={[-3.3, 0.17, -0.35]}
+              icon={faClose}
+              action={openLaptop}
+              scale={0.3}
+              occlude={true}
+            />
+            <FloatingText
+              position={[-2.3, 0.17, -0.35]}
+              icon={faUpRightFromSquare}
+              action={() => {
+                location.href = VITE_APP_INNER_WEBSITE
+              }}
+              scale={0.3}
+              occlude={true}
+            />
+          </>
         )}
       </mesh>
     </group>

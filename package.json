@@ -2,7 +2,7 @@
   "name": "portfolio_website",
   "homepage": "https://IsaacAzimovUA.github.io/portfolio_website",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@iframe-resizer/react": "^5.2.3",
+    "@isaac_ua/drei-html-fix": "^0.2.1",
     "@react-spring/three": "^9.7.3",
     "@react-spring/types": "^9.7.3",
     "@react-three/drei": "^9.108.1",

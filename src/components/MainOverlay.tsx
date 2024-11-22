@@ -13,7 +13,7 @@ import { useModel } from '../context/ModelContext'
 
 export const MainOverlay = () => {
   const { sound, open, freeCam, changeCam, turnOnSound } = useModel()
-
+  const { VITE_APP_HOST } = import.meta.env
   const bgaudioRef = useRef(
     new Howl({
       src: ['music/backgroundmusic.webm'],
@@ -39,8 +39,10 @@ export const MainOverlay = () => {
       {(!freeCam && open) || (
         <Html fullscreen zIndexRange={[-1]}>
           <Wrapper>
-            <p>Dmytro Hordus</p>
-            <p>Showcase Project</p>
+            <a href={VITE_APP_HOST}>
+              <p>Dmytro Hordus</p>
+              <p>Showcase Project</p>
+            </a>
             <button
               onClick={audioHandler}
               type="button"
