@@ -22,7 +22,7 @@ type StateType = {
   sound: boolean
 }
 export const initState: StateType = {
-  light: false,
+  light: true,
   open: false,
   freeCam: false,
   sound: false,

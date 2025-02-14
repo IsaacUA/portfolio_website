@@ -80,6 +80,14 @@ const Wrapper = styled.div`
     background-color: #202025;
     margin-block: 0.3rem;
     padding: 0.3rem 1rem;
+    &:hover {
+      scale: 1.005;
+      cursor: pointer;
+    }
+    &:active {
+      scale: 1.01;
+      cursor: pointer;
+    }
   }
   button {
     width: 4rem;
