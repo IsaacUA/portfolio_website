@@ -3,7 +3,13 @@ import { Cylinder } from '@react-three/drei'
 import * as THREE from 'three'
 import { Vector3 } from '@react-three/fiber'
 
-export const Lights = ({ position }: { position: Vector3 }) => {
+export const Lights = ({
+  position,
+  visible,
+}: {
+  position: Vector3
+  visible: boolean
+}) => {
   const mainLightRef = useRef<THREE.SpotLight>(null)
   const rayRef = useRef<THREE.Mesh>(null)
 
@@ -41,7 +47,7 @@ export const Lights = ({ position }: { position: Vector3 }) => {
   }
 
   return (
-    <group position={position}>
+    <group position={position} visible={visible}>
       <spotLight
         ref={mainLightRef}
         color="#fefdb2"

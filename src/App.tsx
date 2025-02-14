@@ -79,7 +79,7 @@ const Scene = () => {
         shadow-normalBias={1}
       />
       <group scale={ratioParam}>
-        {light && <Lights position={[7.6, 1.9, 3.7]} />}
+        <Lights position={[7.6, 1.9, 3.7]} visible={light} />
         {!freeCam && !open && (
           <FloatingText
             icon={faLaptop}
