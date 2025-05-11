@@ -1,4 +1,3 @@
-import { Canvas } from '@react-three/fiber'
 import {
   ContactShadows,
   Environment,
@@ -25,24 +24,24 @@ export default function App() {
         dataInterpolation={(p) => `STAND BY ${p.toFixed(0)}%`}
         dataStyles={{ fontSize: '1.5rem', fontFamily: 'JetBrains Mono' }}
       />
-      <CanvasWrapper>
-        <Canvas
-          shadows
-          gl={{
+      <CanvasWrapper
+        canvasProps={{
+          shadows: true,
+          gl: {
             antialias: true,
             powerPreference: 'high-performance',
-          }}
+          },
+        }}
+      >
+        <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
+        <ModelProvider
+          light={initState.light}
+          open={initState.open}
+          freeCam={initState.freeCam}
+          sound={initState.sound}
         >
-          <PerspectiveCamera makeDefault={true} position={[-60, 20, 60]} />
-          <ModelProvider
-            light={initState.light}
-            open={initState.open}
-            freeCam={initState.freeCam}
-            sound={initState.sound}
-          >
-            <Scene />
-          </ModelProvider>
-        </Canvas>
+          <Scene />
+        </ModelProvider>
       </CanvasWrapper>
     </>
   )
